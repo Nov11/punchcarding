@@ -77,3 +77,30 @@ if __name__ == '__main__':
 
 # assert (s.isMatch("bbbacbcbcbbbbabbbab", "b*c*c*.*.*.*ab*c") == False)
     print(s.isMatch("baccbbcbcacacbbc","c*.*b*c*ba*b*b*.a*"))
+
+
+class Solution:
+    def isMatch(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: bool
+        """
+        if len(p) == 0:
+            return len(s) == 0
+
+        if len(p) == 1:
+            return len(s) == 1 and (s[0] == p[0] or p[0] == '.')
+
+        if p[1] != '*':
+            return len(s) != 0 and (s[0] == p[0] or p[0] == '.') and self.isMatch(s[1:], p[1:])
+
+        while True:
+            if self.isMatch(s, p[2:]):
+                return True
+
+            if len(s) > 0 and (s[0] == p[0] or p[0] == '.'):
+                s = s[1:]
+            else:
+                break
+        return False
