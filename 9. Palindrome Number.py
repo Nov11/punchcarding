@@ -27,3 +27,24 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     print(s.isPalindrome(-2147483648))
+
+
+class Solution:
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if x == 0:
+            return True
+
+        if x < 0 or x % 10 == 0:
+            return False
+
+        v = 0
+        while x > v:
+            v = v * 10
+            v = v + x % 10
+            x = x // 10
+
+        return x == v or x == v // 10
